@@ -1,44 +1,22 @@
 //your JS code here. If required.
-document.addEventListener("DOMContentLoaded", function () {
-  const inputElements = document.querySelectorAll(".code");
+document.addEventListener('DOMContentLoaded', function () {
+                const codeInputs = document.querySelectorAll('.code');
 
-  inputElements.forEach((inputElement, index) => {
-    inputElement.addEventListener("input", function (event) {
-      const code = event.data;
+                codeInputs.forEach((input, index) => {
+                    input.addEventListener('input', function () {
+                        if (input.value.length === 1) {
+                            if (index < codeInputs.length - 1) {
+                                codeInputs[index + 1].focus();
+                            }
+                        } else if (input.value.length === 0 && index > 0) {
+                            codeInputs[index - 1].focus();
+                        }
+                    });
 
-      if (!code) {
-        handleBackspace(inputElement);
-        return;
-      }
-
-      if (/^[0-9]$/.test(code)) {
-        focusNextInput(index);
-      } else {
-        inputElement.value = "";
-      }
-    });
-
-    inputElement.addEventListener("keydown", function (event) {
-      if (event.key === "Backspace") {
-        event.preventDefault();
-        handleBackspace(inputElement);
-      }
-    });
-  });
-});
-
-function focusNextInput(index) {
-  const inputElements = document.querySelectorAll(".code");
-  const nextIndex = index + 1;
-  if (nextIndex < inputElements.length) {
-    inputElements[nextIndex].focus();
-  }
-}
-
-function handleBackspace(currentElement) {
-  const prevElement = currentElement.previousElementSibling;
-  if (prevElement) {
-    prevElement.focus();
-    prevElement.value = "";
-  }
-}
+                    input.addEventListener('keydown', function (e) {
+                        if (e.key === 'Backspace' && index > 0) {
+                            codeInputs[index - 1].focus();
+                        }
+                    });
+                });
+            });
