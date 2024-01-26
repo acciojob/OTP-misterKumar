@@ -24,3 +24,6 @@
             border: 1px solid #ccc;
             margin-right: 5px;
         }
+.code.focused {
+    outline: 2px solid blue; /* Example: Add a blue outline when focused */
+}
